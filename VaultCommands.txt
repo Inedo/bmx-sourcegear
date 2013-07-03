@@ -1,0 +1,46 @@
+ADD                   Add files or folders to the repository.
+ADDREPOSITORY         Add a new repository to the server.
+ADDUSER               Add a new user to the server.
+BATCH                 Place the command line client in batch mode.
+BLAME                 Determine the user that modified a given line.
+BRANCH                Create a branch for a repository folder.
+CHECKIN               Commit items in the pending changeset.
+CHECKOUT              Checkout files from the repository.
+CLOAK                 Cloak repository folders.
+COMMIT                Commit items in the pending changeset.
+CREATEFOLDER          Create a new folder in the repository.
+DELETE                Delete files or folders from the repository.
+DELETELABEL           Delete a label that was applied to a file or folder.
+DIFF                  Diff a working file or folder.
+FORGETLOGIN           Remove locally stored login information.
+GET                   Retrieve files or folders from the repository.
+GETLABEL              Retrieve files or folders specified by label.
+GETLABELDIFFS         This command has been deprecated.  Use HISTORY instead.
+GETVERSION            Retrieve files or folder at a specified version.
+GETWILDCARD           Retrieve files whose names match a wildcard.
+HELP                  Displays this page or help for a specific command.
+HELPHTML              Displays this page or help for a specific command in HTML format.
+HISTORY               Shows history for an item in the repository.
+LABEL                 Applies labelname to version of repositorypath.
+LISTCHANGESET         Show the contents of the pending changeset.
+LISTCHECKOUTS         Show all check out items for the current repository.
+LISTFOLDER            Show contents and status of a repository folder.
+LISTOBJECTPROPERTIES  Show properties of a file or folder on the server.
+LISTPROJECTS          List available work item tracking projects on the server (Fortress only).
+LISTREPOSITORIES      List available repositories on the server.
+LISTUSERS             List all users on the server.
+LISTWORKINGFOLDERS    List local working folder associations.
+MOVE                  Move a file or folder to a different folder.
+OBLITERATE            Obliterate a deleted item.
+PIN                   Pin a file or folder.
+REMEMBERLOGIN         Store authentication information.
+RENAME                Rename a file or folder.
+RENAMELABEL           Rename a file or folder label.
+SETWORKINGFOLDER      Set a working folder association.
+SHARE                 Share a file or folder into a different folder.
+UNCLOAK               Uncloak a folder.
+UNDOCHANGESETITEM     Remove an item from the change set.
+UNDOCHECKOUT          Undo checkout (revert changes).
+UNPIN                 Unpin a file or folder.
+UNSETWORKINGFOLDER    Remove a working folder association.
+VERSIONHISTORY        Shows version history for a folder in the repository.
