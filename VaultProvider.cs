@@ -26,7 +26,6 @@ namespace Inedo.BuildMasterExtensions.SourceGear
         {
         }
 
-        #region Configuration
         /// <summary>
         /// Gets or sets the host name used by the vault client exe
         /// </summary>
@@ -58,7 +57,6 @@ namespace Inedo.BuildMasterExtensions.SourceGear
         /// </summary>
         [Persistent]
         public bool MaskPassword { get; set; }
-        #endregion
 
         public override char DirectorySeparator
         {
@@ -167,7 +165,7 @@ namespace Inedo.BuildMasterExtensions.SourceGear
                 );
 
                 var fileName = Path.GetFileName(sourcePath);
-                return foAgent.ReadAllFileBytes(foAgent.CombinePath(targetPath, fileName));
+                return foAgent.ReadFileBytes(foAgent.CombinePath(targetPath, fileName));
             }
             finally
             {
