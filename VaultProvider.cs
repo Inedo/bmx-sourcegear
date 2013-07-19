@@ -17,7 +17,7 @@ namespace Inedo.BuildMasterExtensions.SourceGear
         "Supports Vault 3.0 and later; requires that the Vault Client (freely available from SourceGear.com) is installed.")]
     [CustomEditor(typeof(VaultProviderEditor))]
     [RequiresInterface(typeof(IRemoteProcessExecuter))]
-    public sealed class VaultProvider : SourceControlProviderBase, IVersioningProvider, IRevisionProvider, IClientCommandProvider
+    public sealed class VaultProvider : SourceControlProviderBase, ILabelingProvider, IRevisionProvider, IClientCommandProvider
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VaultProvider"/> class.
