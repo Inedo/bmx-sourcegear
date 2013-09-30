@@ -213,7 +213,7 @@ namespace Inedo.BuildMasterExtensions.SourceGear
             );
         }
 
-        public byte[] GetCurrentRevision(string path)
+        public object GetCurrentRevision(string path)
         {
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentNullException("path");
@@ -232,7 +232,7 @@ namespace Inedo.BuildMasterExtensions.SourceGear
             if (versionNode == null)
                 throw new InvalidScPathException(path);
 
-            return BitConverter.GetBytes(Int64.Parse(versionNode.Value));
+            return long.Parse(versionNode.Value);
         }
 
         private string FindVaultClientExePath()
