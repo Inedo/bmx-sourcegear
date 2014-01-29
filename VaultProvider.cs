@@ -145,7 +145,7 @@ namespace Inedo.BuildMasterExtensions.SourceGear
             if (string.IsNullOrEmpty(sourcePath))
                 throw new ArgumentNullException("sourcePath");
 
-            var foAgent = (IFileOperationsExecuter)this.Agent;
+            var foAgent = this.Agent.GetService<IFileOperationsExecuter>();
 
             var vaultSourcePath = new VaultPath(sourcePath);
             if (string.IsNullOrEmpty(vaultSourcePath.RepositoryName))
