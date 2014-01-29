@@ -16,7 +16,7 @@ namespace Inedo.BuildMasterExtensions.SourceGear
     [ProviderProperties("SourceGear Vault",
         "Supports Vault 3.0 and later; requires that the Vault Client (freely available from SourceGear.com) is installed.")]
     [CustomEditor(typeof(VaultProviderEditor))]
-    public sealed class VaultProvider : SourceControlProviderBase, ILabelingProvider, IRevisionProvider, IClientCommandProvider
+    public sealed class VaultProvider : SourceControlProviderBase, ILabelingProvider, IRevisionProvider, IClientCommandOutputProvider
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VaultProvider"/> class.
@@ -365,20 +365,25 @@ namespace Inedo.BuildMasterExtensions.SourceGear
             );
         }
 
-        public void ExecuteClientCommand(string commandName, string arguments)
+        void IClientCommandProvider.ExecuteClientCommand(string commandName, string arguments)
+        {
+            this.ExecuteClientCommand(commandName, arguments, null);
+        }
+        public void ExecuteClientCommand(string commandName, string arguments, string outputFileName)
         {
             if (string.IsNullOrEmpty(commandName))
                 throw new ArgumentNullException("commandName");
 
-            var doc = this.RunCommand(commandName, arguments ?? string.Empty);
+            var results = this.ExecuteCommandLine(
+                new AgentProcessStartInfo
+                {
+                    FileName = this.FindVaultClientExePath(),
+                    Arguments = this.GetVaultCommandLineArguments(false) + " \"" + commandName + "\" " + arguments,
+                    OutputFileName = outputFileName
+                }
+            );
 
-            var buffer = new StringBuilder();
-            using (var writer = XmlWriter.Create(buffer, new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true }))
-            {
-                doc.Save(writer);
-            }
-
-            foreach (var line in buffer.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var line in results.Output)
                 this.LogInformation(line);
         }
         public IEnumerable<ClientCommand> GetAvailableCommands()
