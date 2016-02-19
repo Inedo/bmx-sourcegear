@@ -3,6 +3,7 @@ using Inedo.BuildMaster.Extensibility.Providers;
 using Inedo.BuildMaster.Web.Controls;
 using Inedo.BuildMaster.Web.Controls.Extensions;
 using Inedo.Web.Controls;
+using Inedo.Web.Controls.SimpleHtml;
 
 namespace Inedo.BuildMasterExtensions.SourceGear
 {
@@ -13,10 +14,6 @@ namespace Inedo.BuildMasterExtensions.SourceGear
         private ValidatingTextBox txtVaultServer;
         private CheckBox chkUseSSL;
         private SourceControlFileFolderPicker txtOverrideExePath;
-
-        public VaultProviderEditor()
-        {
-        }
 
         protected override void CreateChildControls()
         {
@@ -31,28 +28,16 @@ namespace Inedo.BuildMasterExtensions.SourceGear
                 ServerId = this.EditorContext.ServerId
             };
 
-            CUtil.Add(this,
-                new FormFieldGroup(
-                    "Vault Connection",
-                    "The following fields are used to connect to Vault's webservice. The values entered may be the same as what are entered in the Vault Windows client.",
-                    false,
-                    new StandardFormField("User Name:", this.txtUsername),
-                    new StandardFormField("Password:", this.txtPassword),
-                    new StandardFormField("Vault Server:", this.txtVaultServer),
-                    new StandardFormField("", this.chkUseSSL)
-                ),
-                new FormFieldGroup("Vault.exe Path",
-                    "You may manually specify the location of vault.exe here. If you leave this field blank, BuildMaster will attempt to determine the correct location autotmatically.",
-                    false,
-                    new StandardFormField("", this.txtOverrideExePath)
-                )
+            this.Controls.Add(
+                new SlimFormField("User name:", this.txtUsername),
+                new SlimFormField("Password:", this.txtPassword),
+                new SlimFormField("Vault server:", new Div(this.txtVaultServer), new Div(this.chkUseSSL)),
+                new SlimFormField("Vault.exe path:", this.txtOverrideExePath)
             );
         }
 
         public override ProviderBase CreateFromForm()
         {
-            this.EnsureChildControls();
-
             return new VaultProvider
             {
                 Username = this.txtUsername.Text,
@@ -65,8 +50,6 @@ namespace Inedo.BuildMasterExtensions.SourceGear
 
         public override void BindToForm(ProviderBase provider)
         {
-            this.EnsureChildControls();
-
             var vaultProvider = (VaultProvider)provider;
             this.txtUsername.Text = vaultProvider.Username;
             this.txtPassword.Text = vaultProvider.Password;

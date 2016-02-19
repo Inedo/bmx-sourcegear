@@ -1,70 +1,39 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Xml;
-using Inedo.BuildMaster;
 using Inedo.BuildMaster.Extensibility.Agents;
 using Inedo.BuildMaster.Extensibility.Providers;
 using Inedo.BuildMaster.Extensibility.Providers.SourceControl;
 using Inedo.BuildMaster.Files;
 using Inedo.BuildMaster.Web;
+using Inedo.Serialization;
 
 namespace Inedo.BuildMasterExtensions.SourceGear
 {
-    [ProviderProperties("SourceGear Vault",
-        "Supports Vault 3.0 and later; requires that the Vault Client (freely available from SourceGear.com) is installed.")]
+    [DisplayName("SourceGear Vault")]
+    [Description("Supports Vault 3.0 and later; requires that the Vault Client is installed.")]
     [CustomEditor(typeof(VaultProviderEditor))]
     public sealed class VaultProvider : SourceControlProviderBase, ILabelingProvider, IRevisionProvider, IClientCommandOutputProvider
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VaultProvider"/> class.
-        /// </summary>
-        public VaultProvider()
-        {
-        }
-
-        /// <summary>
-        /// Gets or sets the host name used by the vault client exe
-        /// </summary>
         [Persistent]
         public string HostName { get; set; }
-        /// <summary>
-        /// Gets or sets the username used by the vault client exe
-        /// </summary>
         [Persistent]
         public string Username { get; set; }
-        /// <summary>
-        /// Gets or sets the password used by the vault client exe
-        /// </summary>
         [Persistent]
         public string Password { get; set; }
-        /// <summary>
-        /// Gets or sets the SSL indicator used by the vault client exe
-        /// </summary>
         [Persistent]
         public bool UseSsl { get; set; }
-        /// <summary>
-        /// Gets or sets the user-defined path the the vault.exe client
-        /// </summary>
         [Persistent]
         public string UserDefinedVaultClientExePath { get; set; }
-        /// <summary>
-        /// Gets or sets an indicator that, when true, will mask password
-        /// for log files, etc
-        /// </summary>
         [Persistent]
         public bool MaskPassword { get; set; }
 
-        public override char DirectorySeparator
-        {
-            get { return VaultPath.DirectorySeparator; }
-        }
-        public bool SupportsCommandHelp
-        {
-            get { return true; }
-        }
+        public override char DirectorySeparator => VaultPath.DirectorySeparator;
+        public bool SupportsCommandHelp => true;
 
         public override string ToString()
         {
@@ -122,7 +91,7 @@ namespace Inedo.BuildMasterExtensions.SourceGear
                         repositoryElement.Attributes["name"] == null
                             ? repositoryElement.SelectSingleNode("name").InnerText
                             : repositoryElement.Attributes["name"].Value;
-                    
+
                     repositories.Add(
                         new DirectoryEntryInfo(
                             repositoryName,
@@ -350,11 +319,11 @@ namespace Inedo.BuildMasterExtensions.SourceGear
             files.Sort();
 
             var directoryEntries = new DirectoryEntryInfo[folders.Count];
-            for(int i = 0; i < folders.Count; i++)
+            for (int i = 0; i < folders.Count; i++)
                 directoryEntries[i] = new DirectoryEntryInfo(folders[i], path.ToString() + "/" + folders[i], null, null);
 
             var fileEntries = new FileEntryInfo[files.Count];
-            for(int i = 0; i < files.Count; i++)
+            for (int i = 0; i < files.Count; i++)
                 fileEntries[i] = new FileEntryInfo(files[i], path.ToString() + "/" + files[i]);
 
             return new DirectoryEntryInfo(
