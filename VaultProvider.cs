@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Xml;
-using Inedo.BuildMaster.Extensibility.Agents;
+using Inedo.Agents;
 using Inedo.BuildMaster.Extensibility.Providers;
 using Inedo.BuildMaster.Extensibility.Providers.SourceControl;
 using Inedo.BuildMaster.Files;
@@ -344,7 +344,7 @@ namespace Inedo.BuildMasterExtensions.SourceGear
                 throw new ArgumentNullException("commandName");
 
             var results = this.ExecuteCommandLine(
-                new AgentProcessStartInfo
+                new RemoteProcessStartInfo
                 {
                     FileName = this.FindVaultClientExePath(),
                     Arguments = this.GetVaultCommandLineArguments(false) + " \"" + commandName + "\" " + arguments,
