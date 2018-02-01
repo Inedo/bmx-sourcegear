@@ -2,6 +2,7 @@ using System.Web.UI.WebControls;
 using Inedo.BuildMaster.Extensibility.Providers;
 using Inedo.BuildMaster.Web.Controls;
 using Inedo.BuildMaster.Web.Controls.Extensions;
+using Inedo.Web;
 using Inedo.Web.Controls;
 using Inedo.Web.Controls.SimpleHtml;
 
@@ -13,7 +14,7 @@ namespace Inedo.BuildMasterExtensions.SourceGear
         private ValidatingTextBox txtPassword;
         private ValidatingTextBox txtVaultServer;
         private CheckBox chkUseSSL;
-        private SourceControlFileFolderPicker txtOverrideExePath;
+        private FileBrowserTextBox txtOverrideExePath;
 
         protected override void CreateChildControls()
         {
@@ -22,9 +23,9 @@ namespace Inedo.BuildMasterExtensions.SourceGear
             this.txtVaultServer = new ValidatingTextBox { Width = 300, Required = true };
             this.chkUseSSL = new CheckBox { Text = "Use SSL" };
 
-            this.txtOverrideExePath = new SourceControlFileFolderPicker
+            this.txtOverrideExePath = new FileBrowserTextBox
             {
-                DisplayMode = SourceControlBrowser.DisplayModes.FoldersAndFiles,
+                IncludeFiles = true,
                 ServerId = this.EditorContext.ServerId
             };
 
